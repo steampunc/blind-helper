@@ -10,6 +10,9 @@ void AudioGenerator::operator()() {
     auto vision_proto = queue_manager::QueueManager::GetInstance()
                             .vision_output_queue()
                             .ReadLastMessage();
+
+    std::cout << "Hello, running audio" << std::endl;
+
     if (vision_proto) {
       // Do audio generation
     }

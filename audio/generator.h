@@ -2,6 +2,7 @@
 #define AUDIO_GENERATOR_H_
 
 #include "queue_manager/queue_manager.h"
+#include <portaudio.h>
 #include <iostream>
 
 namespace audio {
