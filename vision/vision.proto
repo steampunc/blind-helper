@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+option cc_enable_arenas = true;
+
+message VisionOutput {
+  repeated double section = 1;
+}
