@@ -2,6 +2,15 @@ syntax = "proto2";
 
 option cc_enable_arenas = true;
 
+package vision;
+
+message Section {
+  required float hue = 1;
+  required float saturation = 2 [default = 0];
+  required float value = 3 [default = 0];
+  required float position = 4;
+}
+
 message VisionOutput {
-  repeated double section = 1;
+  repeated Section section = 1;
 }

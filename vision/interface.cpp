@@ -31,6 +31,12 @@ void VisionInterface::operator()() {
     cv::imshow("vision", image);
     cv::waitKey(1);
 
+    vision::Section* pixel_data = vision_output->add_section();
+    pixel_data->set_hue(image.at<cv::Vec3b>(0, 0)[2] * 2 + 200);
+    pixel_data->set_saturation(0);
+    pixel_data->set_value(0);
+    pixel_data->set_position(0);
+
     queue_manager::QueueManager::GetInstance()
         .vision_output_queue()
         .WriteMessage(vision_output);
