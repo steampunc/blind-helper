@@ -5,8 +5,17 @@
 #include <portaudio.h>
 #include <iostream>
 
+#define SAMPLE_RATE (44100)
+
 namespace audio {
 namespace generator {
+
+typedef struct {
+  float left_phase;
+  float right_phase;
+} PaTestData;
+
+static PaTestData data;
 
 class AudioGenerator {
  public:
@@ -15,6 +24,12 @@ class AudioGenerator {
 
   void operator()();
   void Stop();
+
+  static int Callback(const void *input, void *output, unsigned long frameCount,
+                      const PaStreamCallbackTimeInfo *timeInfo,
+                      PaStreamCallbackFlags statusFlags, void *userData);
+
+  void EvalError(PaError error);
 
  private:
   bool running_ = true;
