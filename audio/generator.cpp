@@ -52,12 +52,16 @@ int AudioGenerator::Callback(const void *input, void *output,
 
     if (vision_input) {
       for (int j = 0; j < vision_input.value()->section_size(); j++) {
-        data->left_phase =
-            sin(2.0 * M_PI * vision_input.value()->section(j).hue() *
-                (double(i) / double(SAMPLE_RATE)));
-        data->right_phase =
-            sin(2.0 * M_PI * vision_input.value()->section(j).hue() *
-                (double(i) / double(SAMPLE_RATE)));
+        data->left_phase +=
+            vision_input.value()->section(j).position() *
+            sin(constant * ((double(vision_input.value()->section(j).hue()) *
+                             user_sound_range_constant) +
+                            user_sound_base_constant));
+        data->right_phase +=
+            (1.0 - vision_input.value()->section(j).position()) *
+            sin(constant * ((double(vision_input.value()->section(j).hue()) *
+                             user_sound_range_constant) +
+                            user_sound_base_constant));
       }
     }
 

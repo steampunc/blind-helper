@@ -7,7 +7,7 @@
 
 namespace vision {
 
-using VisionOutputProto = muan::proto::StackProto<VisionOutput, 256>;
+using VisionOutputProto = muan::proto::StackProto<VisionOutput, 512>;
 
 using VisionOutputQueue = muan::queues::MessageQueue<VisionOutputProto, 100>;
 
