@@ -30,12 +30,25 @@ void VisionInterface::operator()() {
 
     // Processing
     {
+      // TODO Get user inputs here to set settings on image
+      int user_blur_size = 20;
+      cv::ColorConversionCodes user_colorspace_conversion = cv::COLOR_BGR2GRAY;
+
       // Reduce noise from webcam
       cv::blur(raw, raw, cv::Size(user_blur_size, user_blur_size));
 
       // Change colorspace to whatever user wants it to be
       cv::cvtColor(raw, image, user_colorspace_conversion);
     }
+
+    int user_num_partitions = 6;
+
+    double partition_width =
+        double(image.size().width) / double(user_num_partitions);
+    for (int i = 0; i < user_num_partitions; i++) {
+      // Figure out position of test pixel
+      int current_x_pos =
+          (double(i) * partition_width) + (partition_width / 2.0);
 
       vision::Section* pixel_data = vision_output->add_section();
       pixel_data->set_hue(image.at<uchar>(

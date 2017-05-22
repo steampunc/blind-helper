@@ -50,6 +50,10 @@ int AudioGenerator::Callback(const void *input, void *output,
     data->left_phase = 0.0;
     data->right_phase = 0.0;
 
+    float constant = 2.0 * M_PI * (double(data->counter) / double(SAMPLE_RATE));
+    double user_sound_range_constant = 3;
+    double user_sound_base_constant = 100;
+
     if (vision_input) {
       for (int j = 0; j < vision_input.value()->section_size(); j++) {
         data->left_phase +=
@@ -65,8 +69,8 @@ int AudioGenerator::Callback(const void *input, void *output,
       }
     }
 
-    std::cout << data->left_phase << ", " << data->right_phase << ", "
-              << double(i) / double(SAMPLE_RATE) << std::endl;
+    /* std::cout << data->left_phase << ", " << data->right_phase << ", " */
+    /*           << double(i) / double(SAMPLE_RATE) << std::endl; */
 
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase; /* right */
