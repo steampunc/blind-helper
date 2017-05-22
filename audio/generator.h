@@ -13,6 +13,7 @@ namespace generator {
 typedef struct {
   float left_phase;
   float right_phase;
+  uint64_t counter;
 } PaTestData;
 
 static PaTestData data;
