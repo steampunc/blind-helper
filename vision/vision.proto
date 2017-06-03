@@ -5,12 +5,14 @@ option cc_enable_arenas = true;
 package vision;
 
 message Section {
-  required float hue = 1;
-  required float saturation = 2 [default = 0];
-  required float value = 3 [default = 0];
+  required float a = 1 [default = 0];
+  required float b = 2 [default = 0];
+  required float c = 3 [default = 0];
   required float position = 4;
+  required float intensity = 5;
 }
 
 message VisionOutput {
-  repeated Section section = 1;
+  required uint32 colorspace = 1;
+  repeated Section section = 2;
 }
