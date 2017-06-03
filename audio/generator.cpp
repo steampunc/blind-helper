@@ -56,21 +56,26 @@ int AudioGenerator::Callback(const void *input, void *output,
 
     if (vision_input) {
       for (int j = 0; j < vision_input.value()->section_size(); j++) {
-        data->left_phase +=
-            vision_input.value()->section(j).position() *
-            sin(constant * ((double(vision_input.value()->section(j).hue()) *
-                             user_sound_range_constant) +
-                            user_sound_base_constant));
-        data->right_phase +=
+        double left_pitch = double(vision_input.value()->section(j).a()) *
+                                user_sound_range_constant +
+                            user_sound_base_constant;
+        double right_pitch = double(vision_input.value()->section(j).a()) *
+                                 user_sound_range_constant +
+                             user_sound_base_constant;
+
+        double left_amplitude =
             (1.0 - vision_input.value()->section(j).position()) *
-            sin(constant * ((double(vision_input.value()->section(j).hue()) *
-                             user_sound_range_constant) +
-                            user_sound_base_constant));
+            (1.0 - (1.0 / (vision_input.value()->section(j).b() + 1.0) +
+                    1.0 / (vision_input.value()->section(j).c() + 1.0)));
+        double right_amplitude =
+            (vision_input.value()->section(j).position()) *
+            (1.0 - (1.0 / (vision_input.value()->section(j).b() + 1.0) +
+                    1.0 / (vision_input.value()->section(j).c() + 1.0)));
+
+        data->left_phase += left_amplitude * sin(constant * left_pitch);
+        data->right_phase += right_amplitude * sin(constant * right_pitch);
       }
     }
-
-    /* std::cout << data->left_phase << ", " << data->right_phase << ", " */
-    /*           << double(i) / double(SAMPLE_RATE) << std::endl; */
 
     *out++ = data->left_phase;  /* left */
     *out++ = data->right_phase; /* right */
