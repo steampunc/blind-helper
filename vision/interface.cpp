@@ -8,7 +8,7 @@ VisionInterface::VisionInterface() {}
 
 void VisionInterface::operator()() {
   cv::VideoCapture cap;
-  cap.open(0);
+  cap.open(1);
   cv::Mat raw, image;
   while (running_) {
     VisionOutputProto vision_output;
@@ -58,8 +58,6 @@ void VisionInterface::operator()() {
       pixel_data->set_c(image.at<cv::Vec3b>(y_pos, current_x_pos).val[2]);
       pixel_data->set_position(double(current_x_pos) /
                                double(image.size().width));
-      std::cout << pixel_data->a() << ", " << pixel_data->b() << ", "
-                << pixel_data->c() << std::endl;
     }
 
     queue_manager::QueueManager::GetInstance()
