@@ -18,6 +18,7 @@ class VisionInterface {
 
  private:
   bool running_ = true;
+  int scanning_pos_ = 0;
 };
 }
 }

@@ -65,12 +65,12 @@ int AudioGenerator::Callback(const void *input, void *output,
 
         double left_amplitude =
             (1.0 - vision_input.value()->section(j).position()) *
-            (1.0 - (1.0 / (vision_input.value()->section(j).b() + 1.0) +
-                    1.0 / (vision_input.value()->section(j).c() + 1.0)));
+            (1.0 - (100.0 / (vision_input.value()->section(j).b() + 100.0) * 0 +
+                    100.0 / (vision_input.value()->section(j).c() + 100.0)));
         double right_amplitude =
             (vision_input.value()->section(j).position()) *
-            (1.0 - (1.0 / (vision_input.value()->section(j).b() + 1.0) +
-                    1.0 / (vision_input.value()->section(j).c() + 1.0)));
+            (1.0 - (100.0 / (vision_input.value()->section(j).b() + 100.0) * 0 +
+                    100.0 / (vision_input.value()->section(j).c() + 100.0)));
 
         data->left_phase += left_amplitude * sin(constant * left_pitch);
         data->right_phase += right_amplitude * sin(constant * right_pitch);
